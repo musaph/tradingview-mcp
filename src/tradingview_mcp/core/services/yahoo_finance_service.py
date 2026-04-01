@@ -27,13 +27,36 @@ _BASE = "https://query1.finance.yahoo.com/v8/finance/chart"
 
 
 def _fetch_quote(symbol: str) -> dict:
-    """Fetch raw Yahoo Finance chart metadata for a symbol."""
+    """Fetch raw Yahoo Finance chart result for a symbol (meta + indicators)."""
     url = f"{_BASE}/{symbol}?interval=1d&range=2d"
     req = urllib.request.Request(url, headers={"User-Agent": _UA})
     opener = build_opener_with_proxy(_UA)
     with opener.open(req, timeout=_TIMEOUT) as resp:
         data = json.loads(resp.read().decode("utf-8"))
-    return data["chart"]["result"][0]["meta"]
+    return data["chart"]["result"][0]
+
+
+def _get_previous_close(chart_result: dict) -> Optional[float]:
+    """Extract previous trading day's close from candle data.
+
+    The meta fields 'previousClose' and 'chartPreviousClose' are unreliable:
+    - 'previousClose' is often None
+    - 'chartPreviousClose' returns the chart range start price, not yesterday's close
+
+    Instead, we use the actual close prices from the 2-day candle data.
+    With range=2d, indicators.quote[0].close gives [prev_day_close, today_close].
+    """
+    try:
+        closes = chart_result.get("indicators", {}).get("quote", [{}])[0].get("close", [])
+        # Filter out None values (can happen for incomplete candles)
+        valid_closes = [c for c in closes if c is not None]
+        if len(valid_closes) >= 2:
+            return valid_closes[-2]
+    except (IndexError, TypeError, KeyError):
+        pass
+    # Fallback to meta fields if candle data unavailable
+    meta = chart_result.get("meta", {})
+    return meta.get("previousClose") or meta.get("chartPreviousClose")
 
 
 def get_price(symbol: str) -> dict:
@@ -47,9 +70,10 @@ def get_price(symbol: str) -> dict:
         dict with price, change, change_pct, currency, exchange, market_state
     """
     try:
-        meta = _fetch_quote(symbol)
+        chart_result = _fetch_quote(symbol)
+        meta = chart_result.get("meta", {})
         price      = meta.get("regularMarketPrice")
-        prev_close = meta.get("previousClose") or meta.get("chartPreviousClose") or price
+        prev_close = _get_previous_close(chart_result) or price
         chg        = round(price - prev_close, 4) if (price and prev_close) else None
         chg_pct    = round((price - prev_close) / prev_close * 100, 2) if (price and prev_close and prev_close != 0) else None
 
