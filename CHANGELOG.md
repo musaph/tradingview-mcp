@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
 - Bumped default `commission` from 0.001 to 0.002 (0.2%) — better reflects the actual fees on the exchanges I use (Binance taker fee)
 - Bumped default `slippage` from 0.001 to 0.0015 — Binance spot slippage on smaller caps tends to run a bit higher than the original default
 - Bumped default `period` (lookback bars) in `backtest_strategy` from 252 to 500 — more history gives the walk-forward folds enough data on 1h timeframe
+- Bumped default `train_ratio` in `walk_forward_backtest_strategy` from 0.7 to 0.8 — prefer more training data per fold given the shorter crypto history I work with
 
 ---
 
@@ -46,6 +47,4 @@ All notable changes to this project will be documented in this file.
   - Transaction cost simulation: per-trade commission + slippage
   - Buy-and-hold benchmark comparison
   - Single OHLCV fetch for `compare_strategies` (all 6 strategies in ~0.3s)
-- **Yahoo Finance Integration** (`yahoo_price`, `market_snapshot`):
-  - Real-time quotes for stocks, crypto, ETFs, indices (S&P500, NASDAQ, VIX), FX
-  - Global mark
+- **Yahoo F
