@@ -103,6 +103,10 @@ uv run pytest
 uv run ruff check .
 ```
 
+## Notes
+
+> **Personal note:** I primarily use this with Claude Desktop for analyzing crypto and US equities. The `get_technical_analysis` and `get_history` tools are the most useful for my workflow.
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
