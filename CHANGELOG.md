@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file.
 ### Notes (personal)
 - I changed the default `interval` in `backtest_strategy` from `"1d"` to `"1h"` in my fork since I mostly test intraday setups
 - Bumped default `n_splits` in `walk_forward_backtest_strategy` from 5 to 3 — 5 folds felt like overkill for the shorter crypto datasets I usually run this on
+- Bumped default `initial_capital` from 10000 to 1000 — easier to reason about % returns when starting from a round number that matches my actual test budget
 
 ---
 
@@ -54,7 +55,3 @@ All notable changes to this project will be documented in this file.
   - ATR (Average True Range)
   - Supertrend
   - Donchian Channel
-
-### Changed
-- `compare_strategies` now fetches OHLCV once and runs all strategies on cached data (5x faster)
-- Yahoo Finance data fetching uses direct connec
