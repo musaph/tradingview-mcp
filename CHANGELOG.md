@@ -32,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - Bumped default `n_splits` in `walk_forward_backtest_strategy` from 5 to 3 — 5 folds felt like overkill for the shorter crypto datasets I usually run this on
 - Bumped default `initial_capital` from 10000 to 1000 — easier to reason about % returns when starting from a round number that matches my actual test budget
 - Bumped default `commission` from 0.001 to 0.002 (0.2%) — better reflects the actual fees on the exchanges I use (Binance taker fee)
+- Bumped default `slippage` from 0.001 to 0.0015 — Binance spot slippage on smaller caps tends to run a bit higher than the original default
 
 ---
 
@@ -48,7 +49,4 @@ All notable changes to this project will be documented in this file.
   - Real-time quotes for stocks, crypto, ETFs, indices (S&P500, NASDAQ, VIX), FX
   - Global market snapshot with 14 instruments across 4 asset classes
   - Turkish stocks supported (THYAO.IS, SASA.IS...)
-- **Webshare Rotating Proxy Manager**:
-  - 250 sticky sessions for rate-limit bypass
-  - Direct-first + proxy-fallback architecture for reliability
-  - Zero-config for 
+- **Webshare Rotating Proxy Manage
