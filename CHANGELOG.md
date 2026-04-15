@@ -33,6 +33,7 @@ All notable changes to this project will be documented in this file.
 - Bumped default `initial_capital` from 10000 to 1000 — easier to reason about % returns when starting from a round number that matches my actual test budget
 - Bumped default `commission` from 0.001 to 0.002 (0.2%) — better reflects the actual fees on the exchanges I use (Binance taker fee)
 - Bumped default `slippage` from 0.001 to 0.0015 — Binance spot slippage on smaller caps tends to run a bit higher than the original default
+- Bumped default `period` (lookback bars) in `backtest_strategy` from 252 to 500 — more history gives the walk-forward folds enough data on 1h timeframe
 
 ---
 
@@ -47,6 +48,4 @@ All notable changes to this project will be documented in this file.
   - Single OHLCV fetch for `compare_strategies` (all 6 strategies in ~0.3s)
 - **Yahoo Finance Integration** (`yahoo_price`, `market_snapshot`):
   - Real-time quotes for stocks, crypto, ETFs, indices (S&P500, NASDAQ, VIX), FX
-  - Global market snapshot with 14 instruments across 4 asset classes
-  - Turkish stocks supported (THYAO.IS, SASA.IS...)
-- **Webshare Rotating Proxy Manage
+  - Global mark
