@@ -35,6 +35,7 @@ All notable changes to this project will be documented in this file.
 - Bumped default `slippage` from 0.001 to 0.0015 — Binance spot slippage on smaller caps tends to run a bit higher than the original default
 - Bumped default `period` (lookback bars) in `backtest_strategy` from 252 to 500 — more history gives the walk-forward folds enough data on 1h timeframe
 - Bumped default `train_ratio` in `walk_forward_backtest_strategy` from 0.7 to 0.8 — prefer more training data per fold given the shorter crypto history I work with
+- Bumped default `recent_trades` count from 5 to 10 — 5 trades wasn't enough context when reviewing 1h backtest results; 10 gives a better picture of recent strategy behavior
 
 ---
 
@@ -44,7 +45,4 @@ All notable changes to this project will be documented in this file.
 - **Backtesting Engine v2** (`backtest_strategy`, `compare_strategies`):
   - 6 trading strategies: RSI, Bollinger Band, MACD, EMA Cross, **Supertrend** (🔥 trending 2025), **Donchian Channel** (Turtle Trader classic)
   - Institutional-grade metrics: Sharpe Ratio, Calmar Ratio, Expectancy, Profit Factor, Max Drawdown
-  - Transaction cost simulation: per-trade commission + slippage
-  - Buy-and-hold benchmark comparison
-  - Single OHLCV fetch for `compare_strategies` (all 6 strategies in ~0.3s)
-- **Yahoo F
+  - Transaction cost simu
