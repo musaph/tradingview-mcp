@@ -108,6 +108,8 @@ uv run ruff check .
 > **Personal note:** I primarily use this with Claude Desktop for analyzing crypto and US equities. The `get_technical_analysis` and `get_history` tools are the most useful for my workflow.
 >
 > **Tip:** When using `get_history`, the `1W` (weekly) interval is great for getting a broader trend picture without hitting rate limits as quickly as `1m` or `5m` intervals.
+>
+> **Tip:** For crypto, prefix symbols with `BINANCE:` (e.g. `BINANCE:BTCUSDT`) to get more reliable data than using the generic symbol alone.
 
 ## Changelog
 
