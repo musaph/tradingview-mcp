@@ -37,11 +37,10 @@ All notable changes to this project will be documented in this file.
 - Bumped default `train_ratio` in `walk_forward_backtest_strategy` from 0.7 to 0.8 — prefer more training data per fold given the shorter crypto history I work with
 - Bumped default `recent_trades` count from 5 to 10 — 5 trades wasn't enough context when reviewing 1h backtest results; 10 gives a better picture of recent strategy behavior
 - Bumped default `top_n` in `compare_strategies` from 3 to 6 — want to see the full ranking across all 6 strategies rather than just the top 3 when comparing on a new symbol
+- Bumped default `risk_free_rate` in Sharpe calculation from 0.0 to 0.04 (4%) — using a non-zero risk-free rate gives a more realistic Sharpe when comparing against current T-bill yields
 
 ---
 
 ## [0.6.0] - 2026-03-29
 
-### Added
-- **Backtesting Engine v2** (`backtest_strategy`, `compare_strategies`):
-  - 6 trading strategies: RSI, Bollinger Band, MACD, EMA Cross, **Supertrend** (🔥 trending 202
+###
