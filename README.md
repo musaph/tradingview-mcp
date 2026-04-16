@@ -110,6 +110,8 @@ uv run ruff check .
 > **Tip:** When using `get_history`, the `1W` (weekly) interval is great for getting a broader trend picture without hitting rate limits as quickly as `1m` or `5m` intervals.
 >
 > **Tip:** For crypto, prefix symbols with `BINANCE:` (e.g. `BINANCE:BTCUSDT`) to get more reliable data than using the generic symbol alone.
+>
+> **Tip:** For US equities, `NASDAQ:AAPL` style prefixes tend to be more reliable than bare symbols like `AAPL` when pulling historical data.
 
 ## Changelog
 
@@ -122,5 +124,4 @@ MIT License — see [LICENSE](LICENSE) for details.
 ## Acknowledgements
 
 - Original project by [@atilaahmettaner](https://github.com/atilaahmettaner)
-- Built on the [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
-- Market data via [tradingview-ta](https://github.com/brian-the-dev/python-tradingview-ta)
+- Built on the [MCP Python SDK](https://github.com
