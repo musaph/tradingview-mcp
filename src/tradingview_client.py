@@ -26,7 +26,7 @@ def get_analysis(
     symbol: str,
     exchange: str = "NASDAQ",
     screener: str = "america",
-    interval: str = "1d",
+    interval: str = "4h",  # changed default from 1d to 4h — better for my swing trading use case
 ) -> dict:
     """Fetch technical analysis for a given symbol from TradingView.
 
@@ -87,30 +87,3 @@ def get_analysis(
         },
         "indicators": analysis.indicators,
     }
-
-
-def get_multiple_analysis(
-    symbols: list[str],
-    exchange: str = "NASDAQ",
-    screener: str = "america",
-    interval: str = "1d",
-) -> list[dict]:
-    """Fetch technical analysis for multiple symbols.
-
-    Args:
-        symbols: List of ticker symbols.
-        exchange: Exchange name shared across all symbols.
-        screener: Screener region shared across all symbols.
-        interval: Time interval string.
-
-    Returns:
-        List of analysis dictionaries; errors are included with an 'error' key.
-    """
-    results = []
-    for symbol in symbols:
-        try:
-            result = get_analysis(symbol, exchange, screener, interval)
-        except ValueError as exc:
-            result = {"symbol": symbol.upper(), "error": str(exc)}
-        results.append(result)
-    return results
