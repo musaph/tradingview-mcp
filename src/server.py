@@ -37,8 +37,10 @@ async def list_tools() -> list[Tool]:
                     "symbol": {
                         "type": "string",
                         "description": "Ticker symbol (e.g. AAPL, BTDT, EURUSD)",
-                    },"exchange": {
-                        ", BINANCE, F). Optional.",
+                    },
+                    "exchange": {
+                        "type": "string",
+                        "description": "Exchange name (e.g. NASDAQ, NYSE, FX). Optional.",
                     },
                 },
                 "required": ["symbol"],
@@ -48,15 +50,16 @@ async def list_tools() -> list[Tool]:
             name="get_technical_analysis",
             description="Get technical analysis summary (oscillators, moving averages) for a symbol.",
             inputSchema={
-                "type": "object",
-                "properties": {
+                "type": "properties": {
                     "symbol": {
                         "type": "string",
                         "description": "Ticker symbol (e.g. AAPL, BTCUSDT)",
                     },
                     "interval": {
- interval: 1m, 30m, 1h, 1 1W, 1M",
-                        "default": "1d",
+                        "type": "string",
+                        "description": "Time interval: 1m, 530m, 1h, 2h, 4h, 1d, 1W, 1M",
+                        # Changed default from 1d to 4h - more useful for my trading
+                        "default": "4h",
                     },
                     "exchange": {
                         "type": "string",
@@ -93,41 +96,4 @@ async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
     """Dispatch tool calls to the appropriate handler."""
     from src.tools import get_ticker_info, get_technical_analysis, search_symbol
 
-    logger.info("Tool called: %s with args: %s", name, arguments)
-
-    try:
-        if name == "get_ticker_info":
-            result = await get_ticker_info(
-                symbol=arguments["symbol"],
-                exchange=arguments.get("exchange"),
-            )
-        elif name == "get_technical_analysis":
-            result = await get_technical_analysis(
-                symbol=arguments["symbol"],
-                interval=arguments.get("interval", "1d"),
-                exchange=arguments.get("exchange"),
-            )
-        elif name == "search_symbol":
-            result = await search_symbol(
-                query=arguments["query"],
-                limit=arguments.get("limit", 10),
-            )
-        else:
-            result = f"Unknown tool: {name}"
-
-        return [TextContent(type="text", text=str(result))]
-
-    except Exception as exc:
-        logger.exception("Error executing tool %s", name)
-        return [TextContent(type="text", text=f"Error: {exc}")]
-
-
-async def main() -> None:
-    """Run the MCP server over stdio."""
-    logger.info("Starting TradingView MCP server")
-    async with stdio_server() as (read_stream, write_stream):
-        await app.run(read_stream, write_stream, app.create_initialization_options())
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+  
