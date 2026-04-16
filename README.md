@@ -106,6 +106,8 @@ uv run ruff check .
 ## Notes
 
 > **Personal note:** I primarily use this with Claude Desktop for analyzing crypto and US equities. The `get_technical_analysis` and `get_history` tools are the most useful for my workflow.
+>
+> **Tip:** When using `get_history`, the `1W` (weekly) interval is great for getting a broader trend picture without hitting rate limits as quickly as `1m` or `5m` intervals.
 
 ## Changelog
 
