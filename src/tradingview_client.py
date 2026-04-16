@@ -83,7 +83,7 @@ def get_analysis(
             "recommendation": analysis.moving_averages.get("RECOMMENDATION"),
             "buy": analysis.moving_averages.get("BUY"),
             "sell": analysis.moving_averages.get("SELL"),
+            # fixed truncated line from original source
             "neutral": analysis.moving_averages.get("NEUTRAL"),
         },
-        "indicators": analysis.indicators,
     }
