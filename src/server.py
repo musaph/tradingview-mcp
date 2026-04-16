@@ -38,26 +38,19 @@ async def list_tools() -> list[Tool]:
                         "type": "string",
                         "description": "Ticker symbol (e.g. AAPL, BTDT, EURUSD)",
                     },
-                    "exchange": {
-                        "type": "string",
-                        "description": "Exchange name (e.g. NASDAQ, NYSE, FX). Optional.",
-                    },
-                },
-                "required": ["symbol"],
+                                "required": ["symbol"],
             },
         ),
         Tool(
             name="get_technical_analysis",
             description="Get technical analysis summary (oscillators, moving averages) for a symbol.",
             inputSchema={
-                "type": "properties": {
+                "type": "object",
+                "properties": {
                     "symbol": {
                         "type": "string",
                         "description": "Ticker symbol (e.g. AAPL, BTCUSDT)",
-                    },
-                    "interval": {
-                        "type": "string",
-                        "description": "Time interval: 1m, 530m, 1h, 2h, 4h, 1d, 1W, 1M",
+                    m, 1h, 2h, 4h, 1M",
                         # Changed default from 1d to 4h - more useful for my trading
                         "default": "4h",
                     },
@@ -87,13 +80,3 @@ async def list_tools() -> list[Tool]:
                 },
                 "required": ["query"],
             },
-        ),
-    ]
-
-
-@app.call_tool()
-async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
-    """Dispatch tool calls to the appropriate handler."""
-    from src.tools import get_ticker_info, get_technical_analysis, search_symbol
-
-  
